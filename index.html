@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Afrilore Books – Unlimited African Literature</title>
+  <style>
+    :root {
+      --pearl: #eae0cc;
+      --pale-dogwood: #c9ada1;
+      --eggplant: #673c4f;
+      --rich-black: #001514;
+      --black-olive: #292e1e;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: var(--pearl);
+      margin: 0;
+      padding: 0;
+      color: var(--rich-black);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header {
+      background-color: var(--eggplant);
+      color: var(--pearl);
+      padding: 20px;
+      text-align: center;
+    }
+    nav {
+      background-color: var(--black-olive);
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      padding: 15px;
+    }
+    nav a {
+      color: var(--pearl);
+      text-decoration: none;
+      font-weight: bold;
+      padding: 8px 12px;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+    nav a:hover, nav a.active {
+      background-color: var(--pale-dogwood);
+      color: var(--rich-black);
+    }
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+    section {
+      width: 100%;
+      max-width: 1000px;
+      margin-bottom: 40px;
+    }
+    h2 {
+      color: var(--eggplant);
+      border-bottom: 2px solid var(--pale-dogwood);
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      list-style: disc inside;
+    }
+    footer {
+      background-color: var(--black-olive);
+      color: var(--pearl);
+      text-align: center;
+      padding: 20px;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 20px;
+    }
+    form input, form textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid var(--pale-dogwood);
+      border-radius: 5px;
+    }
+    form button {
+      background-color: var(--eggplant);
+      color: var(--pearl);
+      padding: 10px;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    form button:hover {
+      background-color: var(--pale-dogwood);
+      color: var(--rich-black);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Afrilore Books</h1>
+    <p>One Subscription. Infinite Stories.</p>
+  </header>
+
+  <nav>
+    <a href="#home" class="nav-link">Home</a>
+    <a href="#about" class="nav-link">About</a>
+    <a href="#services" class="nav-link">Services</a>
+    <a href="#portfolio" class="nav-link">My Portfolio</a>
+    <a href="#blog" class="nav-link">Blog</a>
+    <a href="#contact" class="nav-link">Contact</a>
+  </nav>
+
+  <main>
+    <section id="home">
+      <h2>Welcome to Afrilore Books</h2>
+      <p>Stream and explore a rich collection of African folklore, history, modern literature, and educational resources. Affordable, unlimited access starting at just R50/month.</p>
+    </section>
+
+    <section id="about">
+      <h2>About Us</h2>
+      <p>Afrilore Books is dedicated to making African literature accessible and affordable. We promote both classic and emerging voices across the continent.</p>
+      <h3>Our Team</h3>
+      <p>Andiswa Cyria Molangathi – Founder & CEO<br>Our passionate team includes developers, curators, and advocates for African literature.</p>
+      <h3>Our Mission</h3>
+      <p>To democratize access to African stories and foster a love for reading by offering an affordable and extensive digital library.</p>
+      <h3>Our Vision</h3>
+      <p>To become the leading platform for African literature worldwide, supporting cultural heritage and empowering writers.</p>
+    </section>
+
+    <section id="services">
+      <h2>Our Services</h2>
+      <ul>
+        <li>Book Rentals – borrow and enjoy books for set periods.</li>
+        <li>Subscription Access – unlimited streaming of multiple genres.</li>
+        <li>Academic Articles – access scholarly articles and educational resources.</li>
+      </ul>
+    </section>
+
+    <section id="portfolio">
+      <h2>My Portfolio</h2>
+      <p>Showcasing projects and collaborations that highlight Afrilore’s growth, partnerships, and milestones in the African literary space.</p>
+    </section>
+
+    <section id="blog">
+      <h2>Blog</h2>
+      <p>Read our latest posts about African literature, author interviews, book reviews, and industry news.</p>
+    </section>
+
+    <section id="contact">
+      <h2>Contact Us</h2>
+      <p>Email: info@afrilorebooks.com</p>
+      <p>Follow us:
+        <a href="#">Instagram</a> |
+        <a href="#">Facebook</a> |
+        <a href="#">Twitter</a>
+      </p>
+      <form id="contactForm">
+        <input type="text" placeholder="Your Name" required />
+        <input type="email" placeholder="Your Email" required />
+        <textarea rows="5" placeholder="Your Message"></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+      <p id="formMessage" style="margin-top: 15px; color: var(--eggplant); font-weight: bold; display: none;">Thank you for your message!</p>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 Afrilore Books. All rights reserved.
+  </footer>
+
+  <script>
+    // Smooth scroll behavior for navigation links
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+        document.querySelectorAll('.nav-link').forEach(nav => nav.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+
+    // Contact form submission feedback
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      document.getElementById('formMessage').style.display = 'block';
+      this.reset();
+    });
+  </script>
+</body>
+</html>
+
