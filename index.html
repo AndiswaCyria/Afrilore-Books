@@ -48,6 +48,21 @@
       background-color: var(--pale-dogwood);
       color: var(--rich-black);
     }
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        align-items: center;
+      }
+      section {
+        padding: 0 10px;
+      }
+      header {
+        padding: 15px;
+      }
+      header h1 {
+        font-size: 1.8em;
+      }
+    }
     main {
       flex: 1;
       display: flex;
@@ -101,6 +116,20 @@
     form button:hover {
       background-color: var(--pale-dogwood);
       color: var(--rich-black);
+    }
+    .form-error {
+      color: #d32f2f;
+      font-size: 0.9em;
+      margin-top: 5px;
+    }
+    .social-links a {
+      color: var(--eggplant);
+      text-decoration: none;
+      margin: 0 5px;
+      font-weight: bold;
+    }
+    .social-links a:hover {
+      color: var(--pale-dogwood);
     }
   </style>
 </head>
@@ -159,14 +188,19 @@
       <h2>Contact Us</h2>
       <p>Email: info@afrilorebooks.com</p>
       <p>Follow us:
-        <a href="#">Instagram</a> |
-        <a href="#">Facebook</a> |
-        <a href="#">Twitter</a>
+        <span class="social-links">
+          <a href="https://instagram.com/afrilorebooks" target="_blank">Instagram</a> |
+          <a href="https://facebook.com/afrilorebooks" target="_blank">Facebook</a> |
+          <a href="https://twitter.com/afrilorebooks" target="_blank">Twitter</a>
+        </span>
       </p>
       <form id="contactForm">
-        <input type="text" placeholder="Your Name" required />
-        <input type="email" placeholder="Your Email" required />
-        <textarea rows="5" placeholder="Your Message"></textarea>
+        <input type="text" id="userName" placeholder="Your Name" required />
+        <div id="nameError" class="form-error" style="display: none;">Please enter your name</div>
+        <input type="email" id="userEmail" placeholder="Your Email" required />
+        <div id="emailError" class="form-error" style="display: none;">Please enter a valid email</div>
+        <textarea rows="5" id="userMessage" placeholder="Your Message" required></textarea>
+        <div id="messageError" class="form-error" style="display: none;">Please enter your message</div>
         <button type="submit">Send Message</button>
       </form>
       <p id="formMessage" style="margin-top: 15px; color: var(--eggplant); font-weight: bold; display: none;">Thank you for your message!</p>
@@ -190,11 +224,79 @@
       });
     });
 
+    // Set home as active by default
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelector('a[href="#home"]').classList.add('active');
+    });
+
+    // Update active navigation on scroll
+    window.addEventListener('scroll', function() {
+      const sections = document.querySelectorAll('section');
+      const navLinks = document.querySelectorAll('.nav-link');
+      
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (scrollY >= (sectionTop - 200)) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) {
+          link.classList.add('active');
+        }
+      });
+    });
     // Contact form submission feedback
+    function validateForm() {
+      let isValid = true;
+      const name = document.getElementById('userName').value.trim();
+      const email = document.getElementById('userEmail').value.trim();
+      const message = document.getElementById('userMessage').value.trim();
+      
+      // Hide all error messages first
+      document.querySelectorAll('.form-error').forEach(error => {
+        error.style.display = 'none';
+      });
+      
+      if (!name) {
+        document.getElementById('nameError').style.display = 'block';
+        isValid = false;
+      }
+      
+      if (!email || !email.includes('@')) {
+        document.getElementById('emailError').style.display = 'block';
+        isValid = false;
+      }
+      
+      if (!message) {
+        document.getElementById('messageError').style.display = 'block';
+        isValid = false;
+      }
+      
+      return isValid;
+    }
+
     document.getElementById('contactForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      document.getElementById('formMessage').style.display = 'block';
-      this.reset();
+      
+      if (validateForm()) {
+        // Hide any existing error messages
+        document.querySelectorAll('.form-error').forEach(error => {
+          error.style.display = 'none';
+        });
+        
+        document.getElementById('formMessage').style.display = 'block';
+        this.reset();
+        
+        // Hide success message after 5 seconds
+        setTimeout(() => {
+          document.getElementById('formMessage').style.display = 'none';
+        }, 5000);
+      }
     });
   </script>
 </body>
